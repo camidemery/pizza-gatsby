@@ -1,11 +1,4 @@
 {
-  "workbench.colorCustomizations": {
-    "titleBar.activeForeground": "#000",
-    "titleBar.inactiveForeground": "#000000CC",
-    "titleBar.activeBackground": "#FFC600",
-    "titleBar.inactiveBackground": "#FFC600CC"
-  },
-  // These are all my auto-save configs
   "editor.formatOnSave": true,
   // turn it off for JS and JSX, we will do this via eslint
   "[javascript]": {
@@ -23,4 +16,24 @@
     "javascript",
     "javascriptreact"
   ],
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#993bc5",
+    "activityBar.activeBorder": "#4a3916",
+    "activityBar.background": "#993bc5",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#4a3916",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "sash.hoverBorder": "#993bc5",
+    "statusBar.background": "#7b2f9e",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#993bc5",
+    "statusBarItem.remoteBackground": "#7b2f9e",
+    "statusBarItem.remoteForeground": "#e7e7e7",
+    "titleBar.activeBackground": "#7b2f9e",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#7b2f9e99",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "peacock.color": "#7b2f9e",
 }
