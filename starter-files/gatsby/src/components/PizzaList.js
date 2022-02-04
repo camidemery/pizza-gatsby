@@ -2,14 +2,14 @@ import { Link } from 'gatsby';
 import React from 'react';
 
 import styled from '@emotion/styled';
-import {GatsbyImage} from 'gatsby-plugin-image';
+import { GatsbyImage } from 'gatsby-plugin-image';
 
 const PizzaGridStyles = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, 300px);
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   justify-content: center;
   gap: 4rem;
-  grid-auto-columns: 105;
+  /* grid-auto-columns: 105; */
   grid-auto-rows: auto auto 200px;
 `;
 
@@ -32,7 +32,6 @@ const PizzaStyles = styled.div`
 `;
 
 function SinglePizza({ pizza }) {
-
   return (
     <PizzaStyles>
       <Link to={`/pizza/${pizza.slug.current}`}>

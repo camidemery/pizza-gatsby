@@ -4,20 +4,22 @@ import PizzaList from '../components/PizzaList';
 import ToppingsFilter from '../components/ToppingFilter';
 // if you want to have vars in a query, you must have the
 // query at a page level
-export default function PizzasPage({ data }) {
+export default function PizzasPage({ data, pageContext }) {
   const pizzas = data.pizzas.nodes;
 
   return (
     <>
-      <ToppingsFilter />
-      <PizzaList pizzas={pizzas} />)
+      <ToppingsFilter activeTopping={pageContext.topping} />
+      <PizzaList pizzas={pizzas} />
     </>
   );
 }
 
 export const query = graphql`
-  query {
-    pizzas: allSanityPizza {
+  query PizzaQuery($toppingRegex: String) {
+    pizzas: allSanityPizza(
+      filter: { toppings: { elemMatch: { name: { regex: $toppingRegex } } } }
+    ) {
       nodes {
         name
         id
@@ -30,7 +32,7 @@ export const query = graphql`
         }
         image {
           asset {
-            gatsbyImageData(width: 200)
+            gatsbyImageData(layout: CONSTRAINED)
           }
         }
       }
