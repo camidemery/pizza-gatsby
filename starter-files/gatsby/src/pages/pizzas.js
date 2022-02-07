@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import PizzaList from '../components/PizzaList';
 import ToppingsFilter from '../components/ToppingFilter';
+
 // if you want to have vars in a query, you must have the
 // query at a page level
 export default function PizzasPage({ data, pageContext }) {
@@ -31,9 +32,7 @@ export const query = graphql`
           name
         }
         image {
-          asset {
-            gatsbyImageData
-          }
+          ...ImageWithPreview
         }
       }
     }

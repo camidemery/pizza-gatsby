@@ -26,5 +26,12 @@ module.exports = {
         token: process.env.SANITY_TOKEN,
       },
     },
+    {
+      resolve: 'gatsby-plugin-sanity-image',
+      options: {
+        projectId: '2wf5fzem',
+        dataset: 'production',
+      },
+    },
   ],
 };
