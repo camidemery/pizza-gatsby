@@ -1,4 +1,4 @@
-require("dotenv").config({
+require('dotenv').config({
   path: `.env`,
 });
 
@@ -12,6 +12,8 @@ module.exports = {
     // use a string if you want to use the defaults
     'gatsby-plugin-emotion',
     'gatsby-plugin-image',
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
     // use an object if you need to pass through options
     {
       // resolve is always name of plugin you are adding

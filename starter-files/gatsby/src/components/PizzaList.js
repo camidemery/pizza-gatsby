@@ -15,13 +15,11 @@ const PizzaGridStyles = styled.div`
 
 const PizzaStyles = styled.div`
   display: grid;
+  text-align: center;
   // take your row sizing, not from pizza styles div
   // but from the grid styles
-  @supports not (grid-template-rows: subgrid) {
-    --rows: auto auto 1fr;
-  }
   /* check if --rows exists, and if not use subgrid */
-  grid-template-rows: var(---rows, subgrid);
+  grid-template-rows: auto auto 1fr;
   /* each of these elements spans 3 rows in the grid */
   grid-row: span 3;
   grid-gap: 1rem;
@@ -40,7 +38,11 @@ function SinglePizza({ pizza }) {
         </h2>
       </Link>
       <p>{pizza.toppings.map((topping) => topping.name).join(', ')}</p>
-      <GatsbyImage image={pizza.image.asset.gatsbyImageData} alt={pizza.name} />
+      <GatsbyImage
+        image={pizza.image.asset.gatsbyImageData}
+        alt={pizza.name}
+        imgStyle={{ objectFit: 'contain', width: '100%', height: '100%' }}
+      />
     </PizzaStyles>
   );
 }

@@ -32,7 +32,7 @@ export const query = graphql`
         }
         image {
           asset {
-            gatsbyImageData(layout: CONSTRAINED)
+            gatsbyImageData
           }
         }
       }

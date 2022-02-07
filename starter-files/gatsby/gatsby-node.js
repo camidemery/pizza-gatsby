@@ -1,3 +1,4 @@
+const fetch = require(`node-fetch`);
 // dynamically create pages
 // after initial sourcing of data, you can query data and create pages
 
@@ -53,12 +54,44 @@ exports.createPages = async function turnToppingsIntoPages({
     actions.createPage({
       path: `topping/${topping.name}`,
       component: toppingTemplate,
+      // pass topping data to pizza.js
       context: {
         topping: topping.name,
-        // TODO regex for topping
+        // regex for topping
         toppingRegex: `/${topping.name}/i`,
       },
     });
   });
 };
-// pass topping data to pizza.js
+
+// sourcing nodes from an api
+// done on build time, not live
+exports.sourceNodes = async ({
+  actions: { createNode },
+  createNodeId,
+  createContentDigest,
+}) => {
+  // fetch list of beers
+  const results = await fetch(`https://api.sampleapis.com/beers/ale`);
+  const beers = await results.json();
+  // loop over beers
+  for (const beer of beers) {
+    // create nodes for each beers
+    createNode({
+      price: beer.price,
+      name: beer.name,
+      rating: beer.rating,
+      image: beer.image,
+      id: createNodeId(`beer-${beer.name}`),
+      parent: null,
+      children: [],
+      internal: {
+        // what it will be called in graphql
+        type: `Beer`,
+        // in case other plugins are querying on this data
+        mediaType: 'application/json',
+        contentDigest: createContentDigest(beer),
+      },
+    });
+  }
+};

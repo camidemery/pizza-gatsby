@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "gatsby";
-import styled from "@emotion/styled";
-import Logo from "./Logo";
+import React from 'react';
+import { Link } from 'gatsby';
+import styled from '@emotion/styled';
+import Logo from './Logo';
 
 const NavStyled = styled.nav`
   margin-bottom: 3rem;
@@ -84,30 +84,22 @@ function Nav() {
   return (
     <NavStyled>
       <ul>
-        <li class="nav-link">
-          <Link to="/">
-            HOT NOW
-          </Link>
+        <li className="nav-link">
+          <Link to="/">HOT NOW</Link>
         </li>
-        <li class="nav-link">
-          <Link to="/pizzas">
-            PIZZA MENU
-          </Link>
+        <li className="nav-link">
+          <Link to="/pizzas">PIZZA MENU</Link>
         </li>
         <li>
           <Link to="/">
             <Logo />
           </Link>
         </li>
-        <li class="nav-link">
-          <Link to="/slice-masters">
-            SliceMasters
-          </Link>
+        <li className="nav-link">
+          <Link to="/slice-masters">SliceMasters</Link>
         </li>
-        <li class="nav-link">
-          <Link to="/order">
-            ORDER AHEAD!
-          </Link>
+        <li className="nav-link">
+          <Link to="/order">ORDER AHEAD!</Link>
         </li>
       </ul>
     </NavStyled>
