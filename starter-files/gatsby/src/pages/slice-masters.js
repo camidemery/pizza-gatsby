@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { graphql, Link } from 'gatsby';
-import { GatsbyImage } from 'gatsby-plugin-image';
 import React from 'react';
+import SanityImage from 'gatsby-plugin-sanity-image';
+import Pagination from '../components/Pagination';
 
 const SlicemasterGridStyled = styled.div`
   display: grid;
@@ -10,6 +11,8 @@ const SlicemasterGridStyled = styled.div`
 `;
 
 const SlicemasterStyled = styled.div`
+  display: flex;
+  flex-direction: column;
   a {
     text-decoration: none;
   }
@@ -32,22 +35,37 @@ const SlicemasterStyled = styled.div`
     text-align: center;
   }
 `;
-export default function SliceMastersPage({ data }) {
+// if you are going to use the pageContext, you have to destructure it
+export default function SliceMastersPage({ data, pageContext }) {
   const slicemasters = data.slicemasters.nodes;
+  console.log('🫀 currentPage', typeof pageContext.currentPage);
   return (
     <>
+      <Pagination
+        pageSize={pageContext.pageSize}
+        totalCount={10}
+        // [TODO] Fix totalCount not coming in
+        // totalCount={Math.ceil(data.slicemasters.totalCount)}
+        // [TODO] currentPage here is a num, when passed in props it becomes type undef
+        currrentPage={pageContext.currentPage || 1}
+        skip={pageContext.skip}
+        base="/slice-masters"
+      />
       <SlicemasterGridStyled>
         {slicemasters.map((person) => (
-          <SlicemasterStyled>
+          <SlicemasterStyled key={person.id}>
             <Link to={`/slicemaster/${person.slug.current}`}>
               <h2>
                 <span className="mark">{person.name}</span>
               </h2>
             </Link>
-            <GatsbyImage
-              image={person.image.asset.gatsbyImageData}
+            <SanityImage
+              {...person.image}
               alt={person.name}
-              imgStyle={{ height: '400px' }}
+              style={{
+                height: '400px',
+                objectFit: 'cover',
+              }}
             />
             <p className="description">{person.description}</p>
           </SlicemasterStyled>
@@ -58,8 +76,8 @@ export default function SliceMastersPage({ data }) {
 }
 
 export const query = graphql`
-  query {
-    slicemasters: allSanityPerson {
+  query ($skip: Int = 0, $pageSize: Int = 4) {
+    slicemasters: allSanityPerson(limit: $pageSize, skip: $skip) {
       totalCount
       nodes {
         name
@@ -69,9 +87,7 @@ export const query = graphql`
         }
         description
         image {
-          asset {
-            gatsbyImageData(width: 410)
-          }
+          ...ImageWithPreview
         }
       }
     }

@@ -1,3 +1,7 @@
+require('dotenv').config({
+  path: `.env`,
+});
+
 const fetch = require(`node-fetch`);
 // dynamically create pages
 // after initial sourcing of data, you can query data and create pages
@@ -5,6 +9,9 @@ const fetch = require(`node-fetch`);
 exports.createPages = async function turnPizzasIntoPages({ graphql, actions }) {
   // get template
   const pizzaTemplate = require.resolve('./src/templates/Pizza.js');
+  const toppingTemplate = require.resolve('./src/pages/pizzas.js');
+  const slicemastersTemplate = require.resolve('./src/pages/slice-masters.js');
+
   // query all pizzas
   const { data } = await graphql(`
     query {
@@ -14,6 +21,22 @@ exports.createPages = async function turnPizzasIntoPages({ graphql, actions }) {
           slug {
             current
           }
+        }
+      }
+      toppings: allSanityTopping {
+        nodes {
+          name
+          id
+        }
+      }
+      slicemasters: allSanityPerson {
+        totalCount
+        nodes {
+          slug {
+            current
+          }
+          name
+          id
         }
       }
     }
@@ -30,26 +53,6 @@ exports.createPages = async function turnPizzasIntoPages({ graphql, actions }) {
       },
     });
   });
-};
-
-exports.createPages = async function turnToppingsIntoPages({
-  graphql,
-  actions,
-}) {
-  // get template
-  const toppingTemplate = require.resolve('./src/pages/pizzas.js');
-  // query all toppigs
-  const { data } = await graphql(`
-    query {
-      toppings: allSanityTopping {
-        nodes {
-          name
-          id
-        }
-      }
-    }
-  `);
-  // create page for the topping
   data.toppings.nodes.forEach((topping) => {
     actions.createPage({
       path: `topping/${topping.name}`,
@@ -59,6 +62,29 @@ exports.createPages = async function turnToppingsIntoPages({
         topping: topping.name,
         // regex for topping
         toppingRegex: `/${topping.name}/i`,
+      },
+    });
+  });
+
+  // slicemasters pages
+  const pageSize = parseInt(process.env.GATSBY_PAGE_SIZE);
+  console.log('🧘‍♂️', typeof pageSize);
+  console.log('🧘‍♂️', pageSize);
+
+  const pageCount = Math.ceil(10 / pageSize);
+  console.log('🤾‍♂️', pageCount);
+  // [TODO] Fix totalCount coming in correctly
+  // const pageCount = Math.ceil(data.slicemasters.totalCount / pageSize);
+
+  Array.from({ length: pageCount }).forEach((_, i) => {
+    actions.createPage({
+      path: `/slice-masters/${i + 1}`,
+      component: slicemastersTemplate,
+      // data passed to the page
+      context: {
+        skip: i * pageSize,
+        currentPage: i + 1,
+        pageSize,
       },
     });
   });

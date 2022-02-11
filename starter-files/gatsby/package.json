@@ -17,6 +17,7 @@
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
+    "dotenv": "^16.0.0",
     "gatsby": "^4.6.1",
     "gatsby-plugin-emotion": "^7.6.0",
     "gatsby-plugin-image": "^2.6.0",
