@@ -11,6 +11,7 @@ exports.createPages = async function turnPizzasIntoPages({ graphql, actions }) {
   const pizzaTemplate = require.resolve('./src/templates/Pizza.js');
   const toppingTemplate = require.resolve('./src/pages/pizzas.js');
   const slicemastersTemplate = require.resolve('./src/pages/slice-masters.js');
+  const slicemasterTemplate = require.resolve('./src/templates/Slicemaster.js');
 
   // query all pizzas
   const { data } = await graphql(`
@@ -66,6 +67,15 @@ exports.createPages = async function turnPizzasIntoPages({ graphql, actions }) {
     });
   });
 
+  data.slicemasters.nodes.forEach((slicemaster) => {
+    actions.createPage({
+      path: `slice-masters/${slicemaster.slug.current}`,
+      component: slicemasterTemplate,
+      context: {
+        slicemasterID: slicemaster.id,
+      },
+    });
+  });
   // slicemasters pages
   const pageSize = parseInt(process.env.GATSBY_PAGE_SIZE);
   console.log('🧘‍♂️', typeof pageSize);

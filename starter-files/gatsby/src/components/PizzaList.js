@@ -3,7 +3,6 @@ import React from 'react';
 import SanityImage from 'gatsby-plugin-sanity-image';
 
 import styled from '@emotion/styled';
-import { GatsbyImage } from 'gatsby-plugin-image';
 
 const PizzaGridStyles = styled.div`
   display: grid;
