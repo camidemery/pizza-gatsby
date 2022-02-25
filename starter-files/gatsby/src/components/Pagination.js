@@ -1,5 +1,29 @@
+import styled from '@emotion/styled';
 import { Link } from 'gatsby';
 import React from 'react';
+
+const PaginationStyles = styled.div`
+  display: flex;
+  justify-items: center;
+  border: 1px solid var(--grey);
+  text-align: center;
+  margin: 2rem 0;
+  border-radius: 5px;
+  & > * {
+    text-decoration: none;
+    padding: 1rem;
+    flex: 1;
+    border-right: 1px solid var(--grey);
+    &[aria-current],
+    &.current {
+      color: var(--red);
+    }
+    &[disabled] {
+      pointer-events: none;
+      color: var(--grey);
+    }
+  }
+`;
 
 export default function Pagination({
   pageSize,
@@ -8,22 +32,28 @@ export default function Pagination({
   skip,
   base,
 }) {
-  // make more vars
   const totalPages = Math.ceil(totalCount / pageSize);
-  console.log('🙇‍♂️ totalCount', typeof totalCount);
-  console.log('🙇‍♂️ pageSize', typeof pageSize);
-  console.log('🙇‍♂️ currentPage', typeof currentPage);
-
-  const previousPage = 3 - 1;
-  const nextPage = 2 + 1;
-  // [TODO] Make currentPage work, comes in as undef
-  // const previousPage = currentPage - 1;
-  // const nextPage = currentPage + 1;
+  const previousPage = currentPage - 1;
+  const nextPage = currentPage + 1;
+  const hasNextPage = nextPage <= totalPages;
+  const hasPrevPage = previousPage >= 1;
 
   return (
-    <div>
-      <Link to={`${base}/${previousPage}`}>'&ShortLeftArrow;'</Link>
-      <Link to={`${base}/${nextPage}`}>"&ShortRightArrow;"</Link>
-    </div>
+    <PaginationStyles>
+      <Link disabled={!hasPrevPage} to={`${base}/${previousPage}`}>
+        <span className="word">&#8592; Prev</span>
+      </Link>
+      {Array.from({ length: totalPages }).map((_, i) => (
+        <Link
+          to={`${base}/${i > 0 ? i + 1 : ''}`}
+          className={currentPage === 1 && i === 0 ? 'current' : ''}
+        >
+          {i + 1}
+        </Link>
+      ))}
+      <Link disabled={!hasNextPage} to={`${base}/${nextPage}`}>
+        <span className="word">Next &#8594;</span>
+      </Link>
+    </PaginationStyles>
   );
 }

@@ -42,7 +42,6 @@ exports.createPages = async function turnPizzasIntoPages({ graphql, actions }) {
       }
     }
   `);
-  console.log(data);
   // loop over each pizza to create a page
   data.pizzas.nodes.forEach((pizza) => {
     actions.createPage({
@@ -78,13 +77,7 @@ exports.createPages = async function turnPizzasIntoPages({ graphql, actions }) {
   });
   // slicemasters pages
   const pageSize = parseInt(process.env.GATSBY_PAGE_SIZE);
-  console.log('🧘‍♂️', typeof pageSize);
-  console.log('🧘‍♂️', pageSize);
-
-  const pageCount = Math.ceil(10 / pageSize);
-  console.log('🤾‍♂️', pageCount);
-  // [TODO] Fix totalCount coming in correctly
-  // const pageCount = Math.ceil(data.slicemasters.totalCount / pageSize);
+  const pageCount = Math.ceil(data.slicemasters.totalCount / pageSize);
 
   Array.from({ length: pageCount }).forEach((_, i) => {
     actions.createPage({

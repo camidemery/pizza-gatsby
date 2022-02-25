@@ -38,16 +38,12 @@ const SlicemasterStyled = styled.div`
 // if you are going to use the pageContext, you have to destructure it
 export default function SliceMastersPage({ data, pageContext }) {
   const slicemasters = data.slicemasters.nodes;
-  console.log('🫀 currentPage', typeof pageContext.currentPage);
   return (
     <>
       <Pagination
-        pageSize={pageContext.pageSize}
-        totalCount={10}
-        // [TODO] Fix totalCount not coming in
-        // totalCount={Math.ceil(data.slicemasters.totalCount)}
-        // [TODO] currentPage here is a num, when passed in props it becomes type undef
-        currrentPage={pageContext.currentPage || 1}
+        pageSize={parseInt(process.env.GATSBY_PAGE_SIZE)}
+        totalCount={data.slicemasters.totalCount}
+        currentPage={pageContext.currentPage || 1}
         skip={pageContext.skip}
         base="/slice-masters"
       />

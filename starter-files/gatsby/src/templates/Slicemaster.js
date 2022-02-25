@@ -20,12 +20,19 @@ const EffectButton = styled.div`
 export default function SingleSlicemasterPage({ data: { person } }) {
   return (
     <PizzaGrid>
-      <SanityImage {...person.image} alt={person.name} />
-      <div>
+      <div className="center">
+        <SanityImage
+          {...person.image}
+          alt={person.name}
+          style={{
+            height: '700px',
+            objectFit: 'cover',
+          }}
+        />
         <h2 className="mark">Slicemaster {person.name}</h2>
         <p>{person.description}</p>
+        <EffectButton />
       </div>
-      <EffectButton />
     </PizzaGrid>
   );
 }
