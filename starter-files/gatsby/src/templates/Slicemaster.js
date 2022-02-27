@@ -2,8 +2,9 @@ import { graphql } from 'gatsby';
 import React from 'react';
 import styled from '@emotion/styled';
 import SanityImage from 'gatsby-plugin-sanity-image';
+import SEO from '../components/SEO';
 
-const PizzaGrid = styled.div`
+const PersonGrid = styled.div`
   display: grid;
   gap: 2rem;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
@@ -19,21 +20,26 @@ const EffectButton = styled.div`
 
 export default function SingleSlicemasterPage({ data: { person } }) {
   return (
-    <PizzaGrid>
-      <div className="center">
-        <SanityImage
-          {...person.image}
-          alt={person.name}
-          style={{
-            height: '700px',
-            objectFit: 'cover',
-          }}
-        />
-        <h2 className="mark">Slicemaster {person.name}</h2>
-        <p>{person.description}</p>
-        <EffectButton />
-      </div>
-    </PizzaGrid>
+    <>
+      <SEO title={`Slicemaster ${person.name}`} />
+      <PersonGrid>
+        <div className="center">
+          <SanityImage
+            {...person.image}
+            alt={person.name}
+            style={{
+              height: '700px',
+              objectFit: 'cover',
+            }}
+          />
+          <h2>
+            <span className="mark">{person.name}</span>
+          </h2>
+          <p>{person.description}</p>
+          <EffectButton />
+        </div>
+      </PersonGrid>
+    </>
   );
 }
 

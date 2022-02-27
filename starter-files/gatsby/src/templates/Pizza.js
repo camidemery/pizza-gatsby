@@ -1,7 +1,8 @@
 import { graphql } from 'gatsby';
 import React from 'react';
-import { GatsbyImage } from 'gatsby-plugin-image';
 import styled from '@emotion/styled';
+import SanityImage from 'gatsby-plugin-sanity-image';
+import SEO from '../components/SEO';
 
 const PizzaGrid = styled.div`
   display: grid;
@@ -11,18 +12,22 @@ const PizzaGrid = styled.div`
 
 // destructuring the data to the individual pizza lvl
 export default function SinglePizzaPage({ data: { pizza } }) {
+  console.log('pizza image', pizza.image);
   return (
-    <PizzaGrid>
-      <GatsbyImage image={pizza.image.asset.gatsbyImageData} alt={pizza.name} />
-      <div>
-        <h2 className="mark">{pizza.name} PAGEEEEEE</h2>
-        <ul>
-          {pizza.toppings.map((topping) => (
-            <li key={topping.id}>{topping.name}</li>
-          ))}
-        </ul>
-      </div>
-    </PizzaGrid>
+    <>
+      <SEO title={pizza.name} image={pizza.image?.asset?.metadata?.preview} />
+      <PizzaGrid>
+        <SanityImage {...pizza.image} alt={pizza.name} />
+        <div>
+          <h2 className="mark">{pizza.name}</h2>
+          <ul>
+            {pizza.toppings.map((topping) => (
+              <li key={topping.id}>{topping.name}</li>
+            ))}
+          </ul>
+        </div>
+      </PizzaGrid>
+    </>
   );
 }
 
@@ -34,9 +39,8 @@ export const query = graphql`
       name
       id
       image {
-        asset {
-          gatsbyImageData(layout: CONSTRAINED)
-        }
+        ...ImageWithPreview
+        ...Image
       }
       toppings {
         name

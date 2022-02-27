@@ -7,10 +7,12 @@ module.exports = {
     title: 'Slicks Slices',
     siteUrl: 'https://gatsby.pizza',
     description: 'Best pizza place ever',
+    twitter: '@slicksSlices',
   },
   plugins: [
     // use a string if you want to use the defaults
     'gatsby-plugin-emotion',
+    'gatsby-plugin-react-helmet',
     'gatsby-plugin-image',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',

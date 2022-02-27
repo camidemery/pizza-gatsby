@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import PizzaList from '../components/PizzaList';
 import ToppingsFilter from '../components/ToppingFilter';
+import SEO from '../components/SEO';
 
 // if you want to have vars in a query, you must have the
 // query at a page level
@@ -10,6 +11,13 @@ export default function PizzasPage({ data, pageContext }) {
 
   return (
     <>
+      <SEO
+        title={
+          pageContext.topping
+            ? `Pizzas with ${pageContext.topping}`
+            : `All Pizzas`
+        }
+      />
       <ToppingsFilter activeTopping={pageContext.topping} />
       <PizzaList pizzas={pizzas} />
     </>
