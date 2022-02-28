@@ -1,5 +1,5 @@
 // import { createGlobalStyle } from 'styled-components';
-import React from "react";
+import React from 'react';
 import { Global, css } from '@emotion/react';
 import bg from '../assets/images/bg.svg';
 import stripes from '../assets/images/stripes.svg';
@@ -35,6 +35,9 @@ export default function GlobalStyles() {
         button {
           background: var(--red);
           color: white;
+          font-family: FrenchFries, -apple-system, BlinkMacSystemFont,
+            'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+            'Helvetica Neue', sans-serif;
           border: 0;
           padding: 0.6rem 1rem;
           border-radius: 2px;
@@ -91,9 +94,9 @@ export default function GlobalStyles() {
           src: url(${font});
         }
         html {
-          font-family: FrenchFries, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-            Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
-            sans-serif;
+          font-family: FrenchFries, -apple-system, BlinkMacSystemFont,
+            'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+            'Helvetica Neue', sans-serif;
           color: var(--black);
         }
         p,
