@@ -7,6 +7,9 @@ import calculatePrice from '../utils/calculatePrice';
 import formatMoney from '../utils/formatMoney';
 import OrderStyles from '../styles/OrderStyles';
 import MenuItemStyles from '../styles/MenuItemStyles';
+import usePizza from '../utils/usePizza';
+import PizzaOrder from '../components/PizzaOrder';
+import calculateTotal from '../utils/calculateTotal';
 
 export default function OrderPage({ data }) {
   const { values, updateValue } = useForm({
@@ -14,8 +17,12 @@ export default function OrderPage({ data }) {
     name: '',
     email: '',
   });
-
   const pizzas = data.pizzas.nodes;
+  const { order, addToOrder, removeFromOrder } = usePizza({
+    pizzas,
+    inputs: values,
+  });
+
   return (
     // fieldsets allow you to enable/disable as groups
     <>
@@ -58,7 +65,15 @@ export default function OrderPage({ data }) {
               <h2>{pizza.name}</h2>
               <div>
                 {['S', 'M', 'L'].map((size) => (
-                  <button type="button">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      addToOrder({
+                        id: pizza.id,
+                        size,
+                      })
+                    }
+                  >
                     {size} {formatMoney(calculatePrice(pizza.price, size))}
                   </button>
                 ))}
@@ -68,6 +83,18 @@ export default function OrderPage({ data }) {
         </fieldset>
         <fieldset className="order">
           <legend>Order</legend>
+          {/* removeFromOrder needs to be passed in because the state is
+          bound to this component. If imported to the PO component too,
+          it would create 2 dift Pizza states */}
+          <PizzaOrder
+            order={order}
+            removeFromOrder={removeFromOrder}
+            pizzas={pizzas}
+          />
+        </fieldset>
+        <fieldset>
+          <h3>Your total is {formatMoney(calculateTotal(order, pizzas))}</h3>
+          <button type="submit">Order Ahead</button>
         </fieldset>
       </OrderStyles>
     </>

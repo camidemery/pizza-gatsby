@@ -7,6 +7,7 @@ const MenuItemStyles = styled.div`
   gap: 0 1.3rem;
   align-content: center;
   align-items: center;
+  position: relative;
   .pizza-pic {
     grid-row: span 2;
   }
