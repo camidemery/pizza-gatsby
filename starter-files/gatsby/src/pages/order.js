@@ -18,16 +18,28 @@ export default function OrderPage({ data }) {
     email: '',
   });
   const pizzas = data.pizzas.nodes;
-  const { order, addToOrder, removeFromOrder } = usePizza({
+  const {
+    order,
+    addToOrder,
+    removeFromOrder,
+    error,
+    loading,
+    message,
+    submitOrder,
+  } = usePizza({
     pizzas,
-    inputs: values,
+    values,
   });
+
+  if (message) {
+    return <p>{message}</p>;
+  }
 
   return (
     // fieldsets allow you to enable/disable as groups
     <>
       <SEO title="Order a Pizza" />
-      <OrderStyles>
+      <OrderStyles onSubmit={submitOrder}>
         <fieldset>
           <legend>Your Info</legend>
           <label htmlFor="name">
@@ -95,7 +107,10 @@ export default function OrderPage({ data }) {
         </fieldset>
         <fieldset>
           <h3>Your total is {formatMoney(calculateTotal(order, pizzas))}</h3>
-          <button type="submit">Order Ahead</button>
+          <div>{error ? <p>Error: ${error}</p> : ''}</div>
+          <button type="submit" disabled={loading}>
+            {loading ? 'Placing Order....' : 'Order Ahead'}
+          </button>
         </fieldset>
       </OrderStyles>
     </>
