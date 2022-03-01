@@ -47,6 +47,7 @@ export default function Pagination({
         <Link
           to={`${base}/${i > 0 ? i + 1 : ''}`}
           className={currentPage === 1 && i === 0 ? 'current' : ''}
+          key={i}
         >
           {i + 1}
         </Link>
