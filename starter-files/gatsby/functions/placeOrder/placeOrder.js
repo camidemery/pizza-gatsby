@@ -37,9 +37,25 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+function wait(ms = 0) {
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+// Send success or error message
 exports.handler = async (event, context) => {
+  // await wait(5000);
   const body = JSON.parse(event.body);
-  console.log(body);
+
+  // check if they have filled out honeypot
+  if (body.mapleSyrup) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ message: 'BEEP BOOP ERROR 454' }),
+    };
+  }
+
   // validate data coming in
   const requiredFields = ['email', 'name', 'order'];
   for (const field of requiredFields) {
@@ -53,9 +69,16 @@ exports.handler = async (event, context) => {
       };
     }
   }
-  // send email
 
-  // Send success or error message
+  // make sure they havve items in the order
+  if (!body.order.length) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        message: `OOPS! You are missing pizzas`,
+      }),
+    };
+  }
 
   // test send an email
   const info = await transporter.sendMail({

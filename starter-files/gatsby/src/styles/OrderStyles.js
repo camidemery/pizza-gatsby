@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 const OrderStyles = styled.form`
   display: grid;
-  grid-template-colums: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
   fieldset {
     grid-column: span 2;
@@ -21,6 +21,9 @@ const OrderStyles = styled.form`
     fieldset.order {
       grid-column: span 2;
     }
+  }
+  .mapleSyrup {
+    display: none;
   }
 `;
 
