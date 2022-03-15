@@ -2,7 +2,7 @@
   "scripts": {
     "develop": "gatsby develop",
     "start": "gatsby develop",
-    "build": "concurrently \"gatsby build\" \"npm run build:functions\"",
+    "build": "gatsby build",
     "build:functions": "cd functions && npm install",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
