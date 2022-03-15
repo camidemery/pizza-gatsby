@@ -3,7 +3,7 @@
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
-    "build:functions": "cd functions && npm install",
+    "build:functions": "cd functions/placeOrder && npm install",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "netlify": "netlify dev"
