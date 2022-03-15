@@ -41,7 +41,7 @@ export default function OrderPage({ data }) {
     <>
       <SEO title="Order a Pizza" />
       <OrderStyles onSubmit={submitOrder}>
-        <fieldset disabled={loading}>
+        <fieldset className="info" disabled={loading}>
           <legend>Your Info</legend>
           <label htmlFor="name">
             name

@@ -11,6 +11,14 @@ const OrderStyles = styled.form`
     display: grid;
     gap: 1rem;
     align-content: start;
+    &.info {
+      input {
+        margin: 0 1rem;
+        width: 75%;
+        border: none;
+        border-bottom: 2px solid black;
+      }
+    }
     &.order,
     &.menu {
       grid-column: span 1;
