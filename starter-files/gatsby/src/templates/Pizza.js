@@ -12,7 +12,6 @@ const PizzaGrid = styled.div`
 
 // destructuring the data to the individual pizza lvl
 export default function SinglePizzaPage({ data: { pizza } }) {
-  console.log('pizza image', pizza.image);
   return (
     <>
       <SEO title={pizza.name} image={pizza.image?.asset?.metadata?.preview} />
