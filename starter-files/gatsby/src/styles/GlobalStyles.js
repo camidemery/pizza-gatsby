@@ -84,11 +84,6 @@ export default function GlobalStyles() {
           max-width: 100%;
         }
 
-        .tilt {
-          transform: rotate(-2deg);
-          position: relative;
-          display: inline-block;
-        }
         @font-face {
           font-family: FrenchFries;
           src: url(${font});
@@ -126,9 +121,13 @@ export default function GlobalStyles() {
           display: inline;
           line-height: 1;
         }
-
         .center {
           text-align: center;
+        }
+        .tilt {
+          transform: rotate(-2deg);
+          position: relative;
+          display: inline-block;
         }
       `}
     />

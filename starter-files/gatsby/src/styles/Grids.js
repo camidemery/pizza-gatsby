@@ -11,6 +11,7 @@ export const ItemsGrid = styled.div`
   display: grid;
   gap: 2rem;
   grid-template-columns: 1fr 1fr;
+  padding-top: 1rem;
 `;
 
 // single grid item for homepage
@@ -23,10 +24,11 @@ export const ItemStyles = styled.div`
     font-size: 0;
   }
   p {
-    transform: rotate(-2deg) translatey(-50%);
+    transform: rotate(-2deg) translatey(-40%);
     position: absolute;
     width: 100%;
     left: 0;
+    margin: 0;
   }
   .mark {
     display: inline;

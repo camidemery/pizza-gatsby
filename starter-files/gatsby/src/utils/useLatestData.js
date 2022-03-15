@@ -10,7 +10,7 @@ export default function useLatestData() {
   // fakes out VSC to give better formatting
   const gql = String.raw;
 
-  const deets = `
+  const deets = gql`
     name
     _id
     image {
