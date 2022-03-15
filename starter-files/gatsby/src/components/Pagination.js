@@ -5,15 +5,12 @@ import React from 'react';
 const PaginationStyles = styled.div`
   display: flex;
   justify-items: center;
-  border: 1px solid var(--grey);
   text-align: center;
   margin: 2rem 0;
-  border-radius: 5px;
   & > * {
     text-decoration: none;
     padding: 1rem;
     flex: 1;
-    border-right: 1px solid var(--grey);
     &[aria-current],
     &.current {
       color: var(--red);
@@ -23,13 +20,17 @@ const PaginationStyles = styled.div`
       color: var(--grey);
     }
   }
+  @media (max-width: 800px) {
+    .word {
+      display: none;
+    }
+  }
 `;
 
 export default function Pagination({
   pageSize,
   totalCount,
   currentPage,
-  skip,
   base,
 }) {
   const totalPages = Math.ceil(totalCount / pageSize);
@@ -40,7 +41,11 @@ export default function Pagination({
 
   return (
     <PaginationStyles>
-      <Link disabled={!hasPrevPage} to={`${base}/${previousPage}`}>
+      <Link
+        title="prev page"
+        disabled={!hasPrevPage}
+        to={`${base}/${previousPage}`}
+      >
         <span className="word">&#8592; Prev</span>
       </Link>
       {Array.from({ length: totalPages }).map((_, i) => (
@@ -48,11 +53,16 @@ export default function Pagination({
           to={`${base}/${i > 0 ? i + 1 : ''}`}
           className={currentPage === 1 && i === 0 ? 'current' : ''}
           key={i}
+          title={`Link to page ${i + 1}`}
         >
           {i + 1}
         </Link>
       ))}
-      <Link disabled={!hasNextPage} to={`${base}/${nextPage}`}>
+      <Link
+        title="next page"
+        disabled={!hasNextPage}
+        to={`${base}/${nextPage}`}
+      >
         <span className="word">Next &#8594;</span>
       </Link>
     </PaginationStyles>

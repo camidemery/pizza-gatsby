@@ -45,6 +45,7 @@ const NavStyled = styled.nav`
     }
   }
   a {
+    display: block;
     font-size: 3rem;
     text-decoration: none;
     &:hover {
@@ -53,15 +54,14 @@ const NavStyled = styled.nav`
     @media (max-width: 800px) {
       font-size: 2rem;
     }
-    /* &[aria-current='page'] {
+    &[aria-current='page'] {
       color: var(--red);
-    } */
+    }
   }
-  /* @media (max-width: 600px) {
+  @media (max-width: 600px) {
     --columns: 4;
     margin-bottom: 2rem;
     border-bottom: 2px solid var(--grey);
-    padding-bottom: 2rem;
     ul {
       grid-template-rows: auto auto;
       grid-template-columns: repeat(var(--columns), 1fr);
@@ -77,7 +77,7 @@ const NavStyled = styled.nav`
   }
   @media (max-width: 500px) {
     --columns: 2;
-  } */
+  }
 `;
 
 function Nav() {
@@ -90,7 +90,7 @@ function Nav() {
         <li className="nav-link">
           <Link to="/pizzas">PIZZA MENU</Link>
         </li>
-        <li>
+        <li className="logo-item">
           <Link to="/">
             <Logo />
           </Link>

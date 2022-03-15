@@ -15,6 +15,7 @@ const ToppingsStyles = styled.div`
     border-radius: 2px;
     background: var(--grey);
     padding: 5px;
+    font-size: clamp(1.5rem, 1.5vw, 2.5rem);
     .count {
       background: white;
       padding: 2px 5px;
