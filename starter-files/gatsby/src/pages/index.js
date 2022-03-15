@@ -1,18 +1,23 @@
 import React from 'react';
+import LoadingGrid from '../components/LoadingGrid';
 import SEO from '../components/SEO';
+import { HomePageGrid } from '../styles/Grids';
 import useLatestData from '../utils/useLatestData';
 
-function CurrentlySlicing() {
+function CurrentlySlicing({ slicemasters }) {
+  console.log(slicemasters);
   return (
     <div>
-      <p>CurrentlySlicing</p>
+      {!slicemasters && <LoadingGrid count={4} />}
+      {slicemasters && !slicemasters?.length && <p>NO ONE HERE</p>}
     </div>
   );
 }
-function HotSlices() {
+function HotSlices({ hotSlices }) {
   return (
     <div>
-      <p>HotSlices</p>
+      {!hotSlices && <LoadingGrid count={4} />}
+      {hotSlices && !hotSlices?.length && <p>NO PIZZA</p>}
     </div>
   );
 }
@@ -24,10 +29,10 @@ export default function HomePage() {
       <SEO title="Welcome!" />
       <h1>Best Pizza Downdown</h1>
       <p>Open 24 hours</p>
-      <div>
+      <HomePageGrid>
         <CurrentlySlicing slicemasters={slicemasters} />
         <HotSlices hotSlices={hotSlices} />
-      </div>
+      </HomePageGrid>
     </div>
   );
 }

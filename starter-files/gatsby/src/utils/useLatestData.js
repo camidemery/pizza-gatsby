@@ -7,6 +7,22 @@ export default function useLatestData() {
   // creating slicemasters state
   const [slicemasters, setSlicemasters] = useState();
 
+  // fakes out VSC to give better formatting
+  const gql = String.raw;
+
+  const deets = `
+    name
+    _id
+    image {
+      asset {
+        url
+        metadata {
+          lqip
+        }
+      }
+    }
+  `;
+
   // use a side effect to fetch the data from the graphql
   // endpoint
   useEffect(function () {
@@ -16,18 +32,20 @@ export default function useLatestData() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        query: `
-        query {
-          StoreSettings(id: "downtown") {
-            name
-            slicemaster {
+        query: gql`
+          query {
+            StoreSettings(id: "downtown") {
               name
-            }
-            hotSlices {
-              name
+              slicemaster {
+                ${deets}
+              }
+              hotSlices {
+                name
+                _id
+                ${deets}
+              }
             }
           }
-        }
         `,
       }),
     })
